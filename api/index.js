@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRouter from './routes/user.routes.js'
 import authRouter from './routes/auth.route.js'
+import cookieParser from 'cookie-parser'
+
 const app= express()
 dotenv.config()
 
@@ -14,6 +16,7 @@ console.log("connected to DB")
 })
 // middlewares
 app.use(express.json())
+app.use(cookieParser())
 
 // routes
 app.use('/api/user', userRouter)
@@ -29,6 +32,7 @@ app.use((err,req,res,next)=>{
 })
 
 //server
-app.listen(3001, ()=>{
-    console.log(`Server running on {PORT}`)
+const PORT=process.env.PORT
+app.listen(PORT, ()=>{
+    console.log(`Server running on ${PORT}`)
 })
